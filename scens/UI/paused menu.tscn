@@ -1,0 +1,56 @@
+[gd_scene load_steps=2 format=3 uid="uid://bygshf78lngjj"]
+
+[ext_resource type="Script" path="res://scens/UI/scripts/paused menu.gd" id="1_133m8"]
+
+[node name="paused" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_133m8")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 320.0
+offset_bottom = 181.0
+color = Color(0, 0, 0, 0.866667)
+
+[node name="pause" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="pause"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="paused" type="Label" parent="pause/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+text = "Paused"
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="pause/VBoxContainer"]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+
+[node name="resume game" type="Button" parent="pause/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Resume Game"
+
+[node name="restart" type="Button" parent="pause/VBoxContainer"]
+layout_mode = 2
+text = "Restart"
+
+[node name="main menu" type="Button" parent="pause/VBoxContainer"]
+layout_mode = 2
+text = "Main menu"
+
+[node name="Quite" type="Button" parent="pause/VBoxContainer"]
+layout_mode = 2
+text = "Quite"
+
+[connection signal="pressed" from="pause/VBoxContainer/resume game" to="." method="_on_resume_game_pressed"]
+[connection signal="pressed" from="pause/VBoxContainer/restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="pause/VBoxContainer/main menu" to="." method="_on_main_menu_pressed"]
+[connection signal="pressed" from="pause/VBoxContainer/Quite" to="." method="_on_quite_pressed"]

@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cvikupt01wj63"]
+
+[ext_resource type="Texture2D" uid="uid://mfvw4qltj10i" path="res://assets/Tiles/Transparent/tile_0001.png" id="1_khowp"]
+[ext_resource type="Script" uid="uid://cgeydt657sah" path="res://scens/hazards/scripts/bullet/gun.gd" id="1_s5te1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gfnd5"]
+radius = 3.0
+
+[node name="gun" type="Area2D"]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_s5te1")
+
+[node name="Tile0001" type="Sprite2D" parent="."]
+texture = ExtResource("1_khowp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_gfnd5")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

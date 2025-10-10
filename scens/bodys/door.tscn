@@ -1,0 +1,137 @@
+[gd_scene load_steps=11 format=3 uid="uid://da53778n6wev1"]
+
+[ext_resource type="Texture2D" uid="uid://bks0ubo4mim7b" path="res://assets/Tiles/Transparent/tile_0057.png" id="1_hcn7y"]
+[ext_resource type="Texture2D" uid="uid://bq5fyy4u0ducn" path="res://assets/Tiles/Transparent/tile_0059.png" id="2_v1a6i"]
+[ext_resource type="Script" uid="uid://bgqvd7lnynxqt" path="res://scens/bodys/scripts/open door.gd" id="3_87mlp"]
+[ext_resource type="AudioStream" uid="uid://dpuv4hq4c3d2n" path="res://assets/sounds/door-close-79921.mp3" id="4_4gffq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_48odm"]
+size = Vector2(14, 15)
+
+[sub_resource type="Animation" id="Animation_magkv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Tile0057:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_hcn7y")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_7wgvu"]
+resource_name = "idel"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Tile0057:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_hcn7y")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_cm5wk"]
+resource_name = "open"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Tile0057:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_v1a6i")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1a1bn"]
+_data = {
+&"RESET": SubResource("Animation_magkv"),
+&"idel": SubResource("Animation_7wgvu"),
+&"open": SubResource("Animation_cm5wk")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x4ggn"]
+size = Vector2(48, 13)
+
+[node name="door" type="Area2D"]
+collision_layer = 64
+collision_mask = 2
+
+[node name="Tile0057" type="Sprite2D" parent="."]
+texture = ExtResource("1_hcn7y")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_48odm")
+disabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_1a1bn")
+}
+autoplay = "idel"
+
+[node name="open door" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 2
+script = ExtResource("3_87mlp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="open door"]
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_x4ggn")
+
+[node name="open" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_4gffq")
+
+[connection signal="area_entered" from="open door" to="open door" method="_on_area_entered"]
+[connection signal="area_exited" from="open door" to="open door" method="_on_area_exited"]

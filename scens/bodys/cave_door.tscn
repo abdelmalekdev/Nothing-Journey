@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://dis55ix0jf2ve"]
+
+[ext_resource type="Texture2D" uid="uid://h5dx7l4dq61v" path="res://assets/Tiles/Transparent/objects/door.png" id="1_iobbr"]
+
+[node name="cave door" type="StaticBody2D"]
+metadata/_edit_group_ = true
+
+[node name="Door" type="Sprite2D" parent="."]
+texture = ExtResource("1_iobbr")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(0, -8)
+polygon = PackedVector2Array(2, 0, -2, 0, -2, 1, -1, 1, -1, 15, -2, 15, -2, 16, 2, 16, 2, 15, 1, 15, 1, 1, 2, 1)

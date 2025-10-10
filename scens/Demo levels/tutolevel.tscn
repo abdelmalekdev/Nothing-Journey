@@ -1,0 +1,871 @@
+[gd_scene load_steps=33 format=3 uid="uid://cbcs2ovwhs1b4"]
+
+[ext_resource type="TileSet" uid="uid://bmvlxtsymxyh1" path="res://Recource Data/new_tile_set.tres" id="1_70upq"]
+[ext_resource type="Script" uid="uid://fdgvxqdnx4sx" path="res://scens/Demo levels/scripts/tutolevel.gd" id="1_el27m"]
+[ext_resource type="PackedScene" uid="uid://cnk23uwjqu5uc" path="res://scens/players/Player.tscn" id="2_jxuuj"]
+[ext_resource type="PackedScene" uid="uid://dmu6mq6g66sjw" path="res://scens/bodys/light.tscn" id="4_ivsnu"]
+[ext_resource type="PackedScene" uid="uid://dr4x0faliwwak" path="res://scens/bodys/button.tscn" id="5_pyx05"]
+[ext_resource type="PackedScene" uid="uid://bfg1d2t6ogpfy" path="res://scens/bodys/bigmoney.tscn" id="7_yoa4u"]
+[ext_resource type="PackedScene" uid="uid://bnko0pa55ob42" path="res://scens/bodys/box.tscn" id="8_ghev8"]
+[ext_resource type="PackedScene" uid="uid://b6l0ypahnqlxx" path="res://scens/bodys/money.tscn" id="8_rtwb1"]
+[ext_resource type="Texture2D" uid="uid://wltrq0qjpbir" path="res://assets/Tiles/Transparent/controls/left.png" id="9_b4wpf"]
+[ext_resource type="PackedScene" uid="uid://bpdj1bw37l2mg" path="res://scens/hazards/hazard.tscn" id="9_ih2sp"]
+[ext_resource type="Texture2D" uid="uid://djqiolyj5u3a8" path="res://assets/Tiles/Transparent/controls/right.png" id="10_6w0uw"]
+[ext_resource type="PackedScene" uid="uid://iwsvhkjuy4ti" path="res://scens/hazards/floormon_1.tscn" id="10_7r30u"]
+[ext_resource type="Texture2D" uid="uid://cv1n8se83ddpw" path="res://assets/Tiles/Transparent/controls/space.png" id="11_5lhe5"]
+[ext_resource type="Texture2D" uid="uid://b7drcbwdfgai2" path="res://assets/Tiles/Transparent/controls/shift.png" id="12_xvy15"]
+[ext_resource type="Texture2D" uid="uid://cvx0jtjj3715r" path="res://assets/Tiles/Transparent/controls/C.png" id="13_cilnw"]
+[ext_resource type="Texture2D" uid="uid://c4s7urh3s1e4l" path="res://assets/Tiles/Transparent/controls/X.png" id="14_rs7ha"]
+
+[sub_resource type="Animation" id="Animation_54unn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasModulate:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_b3yv7"]
+resource_name = "fade"
+length = 1.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasModulate:color")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0.345098, 0.345098, 0.345098, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_nm3de"]
+resource_name = "fade out"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasModulate:color")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.345098, 0.345098, 0.345098, 1), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_unvan"]
+_data = {
+&"RESET": SubResource("Animation_54unn"),
+&"fade": SubResource("Animation_b3yv7"),
+&"fade out": SubResource("Animation_nm3de")
+}
+
+[sub_resource type="Animation" id="Animation_bk87p"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("tutorials/shift:text")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Press shift
+ to turn on 
+the walljump
+ feature"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("tutorials/shift:modulate")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("tutorials/walljump:text")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Press right
+or left with
+space to jump
+from one wall
+to another"]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("tutorials/moneys:text")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["you should collect
+ the moneys"]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("tutorials/walljump:modulate")
+tracks/4/interp = 2
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("tutorials/moneys:modulate")
+tracks/5/interp = 2
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("tutorials/hazard:text")
+tracks/6/interp = 2
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Avoid obstacles 
+and monsters"]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("tutorials/hazard:modulate")
+tracks/7/interp = 2
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("tutorials/move:text")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["اضغط على يمين و يسار 
+لالتحرك و space للقفز"]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("tutorials/slide box:text")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Press C to move 
+the box"]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("tutorials/speed up:text")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Press X to increase 
+           speed"]
+}
+
+[sub_resource type="Animation" id="Animation_fewxv"]
+resource_name = "ar"
+length = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("tutorials/shift:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["اضفط على shift
+ لتفعيل خاصية القفز 
+من على الجدران    "]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("tutorials/walljump:text")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["اصعد على احد الجدران
+ و اضغط على يمين او 
+يسار مع space 
+للقفن من جدار لاخر  "]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("tutorials/moneys:text")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["من الافضل ان تجمع النقود"]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("tutorials/hazard:text")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["تجنب العقبات و الوحوش"]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("tutorials/move:text")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["اضغط على يمين و يسار 
+لالتحرك و space للقفز"]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("tutorials/slide box:text")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["اضغط C من اجل تحريك
+ الصندوق         "]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("tutorials/speed up:text")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.01),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["اضغط X لزيادة السرعة"]
+}
+
+[sub_resource type="Animation" id="Animation_8qhvs"]
+resource_name = "eng"
+length = 0.01
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("tutorials/shift:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Press shift
+ to on or off the 
+walljump feature"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("tutorials/walljump:text")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Climb on one of the 
+walls and click right  
+or left with space 
+To jump from wall
+ to another"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("tutorials/moneys:text")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["you should collect
+ the moneys"]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("tutorials/hazard:text")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Avoid obstacles 
+and monsters"]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("tutorials/move:text")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["press right & left to
+move & space to jump"]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("tutorials/slide box:text")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Press C to move 
+the box"]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("tutorials/speed up:text")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.00189019),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Press X to increase 
+           speed"]
+}
+
+[sub_resource type="Animation" id="Animation_f64wc"]
+resource_name = "labels animation"
+length = 10.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("tutorials/shift:text")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["Press shift
+ to turn on 
+the walljump
+ feature", "اضفط على shift
+ لتفعيل خاصية القفز 
+من على الجدران    "]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("tutorials/shift:modulate")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.5, 3.5, 5, 6.5, 8.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("tutorials/walljump:text")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["اضغط على يمين او 
+يسار مع space 
+للقفن من جدار لاخر  ", "Press right
+or left with
+space to jump
+from one wall
+to another"]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("tutorials/moneys:text")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["من الافضل ان تجمع النقود", "you should collect
+ the moneys"]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("tutorials/walljump:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1.5, 3.5, 5, 6.5, 8.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("tutorials/moneys:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1.5, 3.5, 5, 6.5, 8.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("tutorials/hazard:text")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["Avoid obstacles 
+and monsters", "تجنب العقبات و الوحوش"]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("tutorials/hazard:modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 1.5, 3.5, 5, 6.5, 8.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qvb7i"]
+_data = {
+&"RESET": SubResource("Animation_bk87p"),
+&"ar": SubResource("Animation_fewxv"),
+&"eng": SubResource("Animation_8qhvs"),
+&"labels animation": SubResource("Animation_f64wc")
+}
+
+[sub_resource type="Theme" id="Theme_eipbs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6hdbj"]
+size = Vector2(200, 200)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6nl0h"]
+size = Vector2(160, 480)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wvajh"]
+size = Vector2(80, 200)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f7wyd"]
+size = Vector2(48, 120)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vq1ah"]
+size = Vector2(300, 400)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iuv4j"]
+size = Vector2(200, 160)
+
+[node name="tutolevel" type="Node2D"]
+script = ExtResource("1_el27m")
+
+[node name="bg" type="Node2D" parent="."]
+
+[node name="CanvasModulate" type="CanvasModulate" parent="bg"]
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="bg"]
+libraries = {
+&"": SubResource("AnimationLibrary_unvan")
+}
+autoplay = "fade"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_qvb7i")
+}
+autoplay = "eng"
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("1_70upq")
+format = 2
+layer_0/tile_data = PackedInt32Array(720899, 1048576, 9, 720898, 1048576, 9, 720897, 1048576, 9, 720896, 1048576, 9, 786431, 1048576, 9, 458753, 1179648, 10, 524289, 1179648, 11, 524286, 1179648, 10, 589822, 1179648, 10, 393219, 1048576, 11, 393218, 1048576, 11, 327681, 1179648, 10, 393217, 1179648, 10, 458750, 1179648, 10, 393214, 1179648, 10, 327678, 1179648, 10, 262142, 1179648, 10, 262145, 1179648, 10, 196609, 1179648, 10, 131073, 983040, 9, -131076, 983040, 9, -65540, 1179648, 10, -4, 1179648, 11, -131079, 1179648, 9, -7, 1179648, 10, 196606, 1114112, 9, 196605, 1048576, 12, 196604, 1048576, 12, 196603, 1048576, 12, 196602, 1048576, 12, 196601, 983040, 11, 131065, 1179648, 10, 65529, 1179648, 10, 131077, 1048576, 12, 131076, 1048576, 12, 131075, 1048576, 12, 131074, 1048576, 12, -196607, 1048576, 12, -196608, 1048576, 12, -131073, 1048576, 12, -131074, 1048576, 12, -131075, 1048576, 12, -65544, 1048576, 12, -65543, 1114112, 10, -65545, 983040, 11, -131081, 1179648, 10, -196617, 1179648, 10, -262153, 1179648, 10, -327689, 1179648, 10, -393225, 1179648, 10, -196602, 1179648, 9, -131066, 1179648, 10, 6, 1179648, 10, -65530, 1179648, 10, 65542, 1179648, 10, 131078, 1114112, 11, -524281, 1048576, 12, -524282, 1048576, 12, -524283, 1048576, 12, -458758, 1048576, 12, -458759, 1048576, 12, -458760, 1048576, 12, -458761, 983040, 9, -524280, 1114112, 9, -196606, 1048576, 12, -196605, 1114112, 9, -131069, 1179648, 10, -65533, 1179648, 11, -524289, 983040, 9, -589824, 1114112, 9, -458753, 983040, 10, -393217, 983040, 10, -327681, 983040, 10, -262145, 983040, 10, -196609, 983040, 10, -524288, 1114112, 10, -458752, 1114112, 10, -393216, 1114112, 10, -327680, 1114112, 10, -262144, 1114112, 10, 655358, 1179648, 10, 720894, 1179648, 11, 786430, 1048576, 9, 720893, 1114112, 10, 655357, 1245184, 10, 786429, 1245184, 9, -262138, 851974, 7, 458756, 983040, 11, 393220, 1245184, 11, 458757, 1048576, 11, 458758, 1048576, 11, 458759, 1048576, 11, 458760, 1048576, 11, 458761, 1048576, 11, 458762, 1048576, 11, 458763, 1048576, 11, 720900, 1048576, 9, 720901, 1048576, 9, 720902, 1048576, 9, 720903, 1048576, 9, 720904, 1048576, 9, 720905, 1048576, 9, 720906, 1048576, 9, 720907, 1048576, 9, 720908, 1048576, 9, 720909, 1048576, 9, 655374, 983040, 10, 589838, 983040, 10, 524302, 983040, 10, 458765, 1048576, 11, 458764, 1048576, 11, 655372, 1245184, 2, 655366, 851968, 0, 655361, 851968, 0, 524294, 1048582, 9, 524295, 1048582, 9, 524296, 1048582, 9, 524297, 1048582, 9, 524298, 1048582, 9, 524299, 1048582, 9, 524300, 1048582, 9, 524301, 1114118, 9, 589837, 1245190, 9, 524293, 1245190, 9, 655364, 851974, 7, 589828, 1179654, 10, 524292, 851974, 5, 655370, 1048582, 15, 655369, 1048582, 15, 655368, 1245190, 14, 655371, 1245190, 15, -458744, 1179648, 10, -393208, 1179648, 11, -393207, 1179648, 9, -327671, 1179648, 10, -262135, 1179648, 10, -196601, 1048576, 12, -196600, 1048576, 12, -196598, 1114112, 12, -196599, 1179648, 10, -131063, 1179648, 11, -458743, 131072, 9, -458756, 1114112, 11, -524292, 1179648, 10, -589828, 1179648, 10, -655364, 1179648, 10, -720900, 1179648, 10, -786436, 983040, 9, -786435, 1048576, 12, -786434, 1048576, 12, -786433, 1048576, 12, -851968, 1048576, 12, -851967, 1048576, 12, -851966, 1048576, 12, -851965, 1114112, 9, -524285, 983040, 11, -589821, 1179648, 10, -655357, 1179648, 10, -720893, 1179648, 10, -786429, 1179648, 10, -524284, 1048576, 12, -458757, 1048576, 12)
+layer_1/name = "Layer1"
+layer_1/tile_data = PackedInt32Array(-786428, 1245184, 9, -393225, 1245184, 12, -131081, 1245184, 11, 131065, 917504, 4, 196602, 1245184, 11, 196606, 1245184, 11, -65543, 1245184, 11, -458761, 1245184, 10, -524284, 1245184, 11, -196605, 1245184, 11, -131069, 1245184, 9, -65540, 1245184, 12, -131076, 1245184, 10, -131079, 1245184, 11, -7, 1245184, 9, 196609, 1245184, 12, 262142, 1245184, 9, 65542, 917504, 4, 131078, 917504, 4, 196608, 983046, 10, 262144, 983046, 10, 327680, 983046, 10, 393216, 983046, 10, 458752, 983046, 10, 262143, 1114118, 10, 327679, 1114118, 10, 393215, 1114118, 10, 458751, 1114118, 10, 524287, 1114118, 10, 196607, 1114118, 10, 131072, 983046, 10, 589823, 1245190, 9, 524288, 1245190, 12, 131071, 1114118, 10, 65535, 1114118, 10, -1, 1114118, 10, 65536, 983046, 10, 0, 983046, 10, -65536, 983046, 10, -131072, 983046, 10, -65537, 1114118, 10, 3, 851974, 5, 65539, 851974, 7, 65532, 851974, 5, 131068, 851974, 7, -262138, 1114112, 0, -327674, 1179654, 10, -393210, 1179654, 10, -458746, 851974, 5, -196615, 851974, 7, -262151, 1179654, 10, -327687, 1179654, 10, -393223, 851974, 5, -262141, 851974, 7, -327677, 1179654, 10, -393213, 1179654, 10, -458749, 851974, 6, -196612, 851974, 7, -262148, 1179654, 10, -327684, 1179654, 10, 720894, 917504, 4, 655358, 917504, 4, 196601, 917504, 4, -393220, 851974, 6, 589825, 851974, 5, 655361, 851974, 7, 131069, 851968, 0, 65540, 851968, 0, 65537, 983040, 0, -131080, 1114112, 1, -196610, 1048576, 1, -196603, 1048582, 12, -196604, 1048582, 12, -524292, 1245184, 10, -458757, 1245184, 10, -458756, 1245184, 12, -589821, 1245184, 11, -524285, 1245184, 9, -786429, 1245184, 9, -851965, 917504, 7, -786436, 917504, 6, -720900, 1245184, 12, 65538, 851968, 3, 131070, 786432, 3)
+layer_2/name = "Layer2"
+layer_2/tile_data = PackedInt32Array(-524280, 1245184, 11, -131079, 1245184, 10, -65543, 1245184, 12, -458749, 1245190, 12, -524285, 1245190, 10, -393220, 1245190, 9, -458756, 1245190, 11, -393212, 1245190, 14, -327676, 1245190, 13, -393211, 1245190, 15, -327675, 1245190, 16, -327685, 1245190, 15, -262149, 1245190, 16, -262150, 1245190, 13, -327686, 1245190, 14, 589825, 1179654, 10, 655361, 1179654, 10, 65542, 1245184, 10, 131065, 1245184, 11, 131078, 1245184, 12, 196601, 1245184, 9)
+
+[node name="objects" type="Node2D" parent="."]
+
+[node name="light" parent="objects" instance=ExtResource("4_ivsnu")]
+
+[node name="light2" parent="objects" instance=ExtResource("4_ivsnu")]
+position = Vector2(80, -80)
+
+[node name="light3" parent="objects" instance=ExtResource("4_ivsnu")]
+position = Vector2(-80, -80)
+
+[node name="light4" parent="objects" instance=ExtResource("4_ivsnu")]
+position = Vector2(0, 128)
+
+[node name="button" parent="objects" instance=ExtResource("5_pyx05")]
+position = Vector2(0, -152)
+
+[node name="bigmoney" parent="objects" instance=ExtResource("7_yoa4u")]
+position = Vector2(-120, -40)
+
+[node name="bigmoney2" parent="objects" instance=ExtResource("7_yoa4u")]
+position = Vector2(120, -88)
+
+[node name="money" parent="objects" instance=ExtResource("8_rtwb1")]
+position = Vector2(0, 112)
+
+[node name="money2" parent="objects" instance=ExtResource("8_rtwb1")]
+position = Vector2(0, 80)
+
+[node name="money3" parent="objects" instance=ExtResource("8_rtwb1")]
+position = Vector2(0, 48)
+
+[node name="money4" parent="objects" instance=ExtResource("8_rtwb1")]
+position = Vector2(0, 24)
+
+[node name="money5" parent="objects" instance=ExtResource("8_rtwb1")]
+position = Vector2(-56, 24)
+
+[node name="money6" parent="objects" instance=ExtResource("8_rtwb1")]
+position = Vector2(56, 24)
+
+[node name="hazard" parent="objects" instance=ExtResource("9_ih2sp")]
+position = Vector2(40, -56)
+
+[node name="box" parent="objects" instance=ExtResource("8_ghev8")]
+position = Vector2(120, -56)
+
+[node name="tutorials" type="CanvasLayer" parent="."]
+
+[node name="move" type="Label" parent="tutorials"]
+offset_left = 8.0
+offset_top = 40.0
+offset_right = 216.0
+offset_bottom = 88.0
+scale = Vector2(0.4, 0.4)
+text = "اضغط على يمين و يسار 
+لالتحرك و space للقفز"
+
+[node name="lang" type="Button" parent="tutorials/move"]
+layout_mode = 0
+offset_top = 60.0
+offset_right = 33.0
+offset_bottom = 79.0
+focus_mode = 0
+theme = SubResource("Theme_eipbs")
+text = "Lang"
+
+[node name="Left" type="Sprite2D" parent="tutorials/move"]
+position = Vector2(100, -9.99999)
+texture = ExtResource("9_b4wpf")
+
+[node name="Right" type="Sprite2D" parent="tutorials/move"]
+position = Vector2(160, -9.99999)
+texture = ExtResource("10_6w0uw")
+
+[node name="Space" type="Sprite2D" parent="tutorials/move"]
+position = Vector2(107.5, 55)
+texture = ExtResource("11_5lhe5")
+
+[node name="shift" type="Label" parent="tutorials"]
+visible = false
+offset_left = 8.0
+offset_top = 40.0
+offset_right = 178.0
+offset_bottom = 136.0
+scale = Vector2(0.4, 0.4)
+text = "Press shift
+ to turn on 
+the walljump
+ feature"
+
+[node name="shift tuto" type="Area2D" parent="tutorials/shift"]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="tutorials/shift/shift tuto"]
+position = Vector2(40, 260)
+scale = Vector2(0.999999, 0.999999)
+shape = SubResource("RectangleShape2D_6hdbj")
+
+[node name="lang" type="Button" parent="tutorials/shift"]
+layout_mode = 0
+offset_top = 80.0
+offset_right = 33.0
+offset_bottom = 99.0
+focus_mode = 0
+text = "Lang"
+
+[node name="Shift" type="Sprite2D" parent="tutorials/shift"]
+position = Vector2(60, 80)
+texture = ExtResource("12_xvy15")
+
+[node name="walljump" type="Label" parent="tutorials"]
+visible = false
+offset_left = 256.0
+offset_top = 48.0
+offset_right = 459.0
+offset_bottom = 168.0
+scale = Vector2(0.3, 0.3)
+text = "Press right
+or left with
+space to jump
+from one wall
+to another"
+
+[node name="walljump tuto" type="Area2D" parent="tutorials/walljump"]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="tutorials/walljump/walljump tuto"]
+position = Vector2(-826.667, 186.667)
+scale = Vector2(0.999999, 0.999999)
+shape = SubResource("RectangleShape2D_6nl0h")
+
+[node name="lang" type="Button" parent="tutorials/walljump"]
+layout_mode = 0
+offset_left = 140.0
+offset_top = 100.0
+offset_right = 173.0
+offset_bottom = 119.0
+scale = Vector2(1.21, 1.1)
+focus_mode = 0
+text = "Lang"
+
+[node name="moneys" type="Label" parent="tutorials"]
+visible = false
+offset_left = 7.99998
+offset_top = 40.0
+offset_right = 198.0
+offset_bottom = 88.0
+scale = Vector2(0.4, 0.4)
+text = "you should collect
+ the moneys"
+
+[node name="money tuto" type="Area2D" parent="tutorials/moneys"]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="tutorials/moneys/money tuto"]
+position = Vector2(-300, -280)
+shape = SubResource("RectangleShape2D_wvajh")
+
+[node name="lang" type="Button" parent="tutorials/moneys"]
+layout_mode = 0
+offset_top = 60.0
+offset_right = 33.0
+offset_bottom = 79.0
+focus_mode = 0
+text = "Lang"
+
+[node name="hazard" type="Label" parent="tutorials"]
+visible = false
+offset_left = 8.0
+offset_top = 40.0
+offset_right = 173.0
+offset_bottom = 88.0
+scale = Vector2(0.4, 0.4)
+text = "Avoid obstacles 
+and monsters"
+
+[node name="hazard tuto" type="Area2D" parent="tutorials/hazard"]
+visible = false
+position = Vector2(-20, -100)
+scale = Vector2(2.5, 2.5)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="tutorials/hazard/hazard tuto"]
+position = Vector2(40, -28)
+scale = Vector2(0.999999, 0.999999)
+shape = SubResource("RectangleShape2D_f7wyd")
+
+[node name="lang" type="Button" parent="tutorials/hazard"]
+layout_mode = 0
+offset_top = 60.0
+offset_right = 33.0
+offset_bottom = 79.0
+focus_mode = 0
+text = "Lang"
+
+[node name="slide box" type="Label" parent="tutorials"]
+visible = false
+offset_left = 8.0
+offset_top = 40.0
+offset_right = 170.0
+offset_bottom = 85.0
+scale = Vector2(0.4, 0.4)
+text = "Press C to move 
+the box"
+
+[node name="box tuto" type="Area2D" parent="tutorials/slide box"]
+position = Vector2(8, 64)
+scale = Vector2(0.4, 0.4)
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="tutorials/slide box/box tuto"]
+position = Vector2(680, -910)
+shape = SubResource("RectangleShape2D_vq1ah")
+
+[node name="lang" type="Button" parent="tutorials/slide box"]
+layout_mode = 0
+offset_top = 60.0
+offset_right = 33.0
+offset_bottom = 79.0
+focus_mode = 0
+text = "Lang"
+
+[node name="C" type="Sprite2D" parent="tutorials/slide box"]
+position = Vector2(60, 60)
+texture = ExtResource("13_cilnw")
+
+[node name="speed up" type="Label" parent="tutorials"]
+visible = false
+offset_left = 8.0
+offset_top = 40.0
+offset_right = 164.0
+offset_bottom = 63.0
+scale = Vector2(0.4, 0.4)
+text = "Press X to increase 
+           speed"
+
+[node name="Area2D" type="Area2D" parent="tutorials/speed up"]
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="tutorials/speed up/Area2D"]
+position = Vector2(-160, -100)
+shape = SubResource("RectangleShape2D_iuv4j")
+
+[node name="lang" type="Button" parent="tutorials/speed up"]
+layout_mode = 0
+offset_top = 60.0
+offset_right = 33.0
+offset_bottom = 79.0
+focus_mode = 0
+text = "Lang"
+
+[node name="X" type="Sprite2D" parent="tutorials/speed up"]
+position = Vector2(60, 60)
+texture = ExtResource("14_rs7ha")
+
+[node name="Player" parent="." instance=ExtResource("2_jxuuj")]
+position = Vector2(184, 168)
+
+[node name="floormon 1" parent="." instance=ExtResource("10_7r30u")]
+position = Vector2(48, 24)
+
+[connection signal="animation_finished" from="bg/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="area_entered" from="objects/button" to="." method="_on_button_area_entered"]
+[connection signal="pressed" from="tutorials/move/lang" to="." method="_on_lang_pressed"]
+[connection signal="area_entered" from="tutorials/shift/shift tuto" to="." method="_on_shift_tuto_area_entered"]
+[connection signal="area_exited" from="tutorials/shift/shift tuto" to="." method="_on_shift_tuto_area_exited"]
+[connection signal="pressed" from="tutorials/shift/lang" to="." method="_on_lang_pressed"]
+[connection signal="area_entered" from="tutorials/walljump/walljump tuto" to="." method="_on_walljump_tuto_area_entered"]
+[connection signal="area_exited" from="tutorials/walljump/walljump tuto" to="." method="_on_walljump_tuto_area_exited"]
+[connection signal="pressed" from="tutorials/walljump/lang" to="." method="_on_lang_pressed"]
+[connection signal="area_entered" from="tutorials/moneys/money tuto" to="." method="_on_money_tuto_area_entered"]
+[connection signal="area_exited" from="tutorials/moneys/money tuto" to="." method="_on_money_tuto_area_exited"]
+[connection signal="pressed" from="tutorials/moneys/lang" to="." method="_on_lang_pressed"]
+[connection signal="area_entered" from="tutorials/hazard/hazard tuto" to="." method="_on_hazard_tuto_area_entered"]
+[connection signal="area_exited" from="tutorials/hazard/hazard tuto" to="." method="_on_hazard_tuto_area_exited"]
+[connection signal="pressed" from="tutorials/hazard/lang" to="." method="_on_lang_pressed"]
+[connection signal="area_entered" from="tutorials/slide box/box tuto" to="." method="_on_box_tuto_area_entered"]
+[connection signal="area_exited" from="tutorials/slide box/box tuto" to="." method="_on_box_tuto_area_exited"]
+[connection signal="pressed" from="tutorials/slide box/lang" to="." method="_on_lang_pressed"]
+[connection signal="area_entered" from="tutorials/speed up/Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="tutorials/speed up/Area2D" to="." method="_on_area_2d_area_exited"]
+[connection signal="pressed" from="tutorials/speed up/lang" to="." method="_on_lang_pressed"]
+
+[editable path="Player"]
+[editable path="Player/paused"]

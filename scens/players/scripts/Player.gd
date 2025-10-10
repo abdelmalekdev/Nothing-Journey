@@ -1,0 +1,256 @@
+extends CharacterBody2D
+
+class_name player
+
+signal player_die
+
+@export var Movement_Data : PlayerMovementData
+
+var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+var air_jump = false
+var jump_priority = false
+var play = true
+var go_up = false
+var slide = false
+var key_off = true
+var yes_key = false
+
+var money = 0
+var bigmoney = 0
+
+var collection_save = "user://collection.save"
+
+@onready var coyotyjumpT = $timers/coyotyjumptimer
+@onready var dietimer = $timers/dietimer
+@onready var key = $collections/key
+
+func _ready():
+	load_collection()
+
+func _physics_process(_delta) :
+	game_inputs()
+	apply_garavity(_delta)
+	var input_axis = Input.get_axis("ui_left", "ui_right")
+	if play == true :
+		handle_wall_jump()
+		wall_slide(input_axis)
+		handle_jump()
+	handle_acceleration(input_axis , _delta)
+	handle_air_acceleration(input_axis , _delta)
+	up_down()
+	apply_friction(input_axis , _delta)
+	air_resistance(input_axis , _delta)
+	update_animation(input_axis)
+	var was_on_floor = is_on_floor()
+	if play == true :
+		move_and_slide()
+	var just_left_edge = was_on_floor and not is_on_floor() and velocity.y <= 0 
+	if just_left_edge :
+		coyotyjumpT.start()
+	jump_priority = false
+	collection()
+
+func save_collection() :
+	var file = FileAccess.open(collection_save , FileAccess.WRITE)
+	file.store_var(bigmoney)
+	file.store_var(money)
+
+
+func load_collection() :
+	if FileAccess.file_exists(collection_save) :
+		var file = FileAccess.open(collection_save , FileAccess.READ)
+		bigmoney = file.get_var(bigmoney)
+		money = file.get_var(money)
+	else :
+		bigmoney = 0
+		money = 0
+
+func collection():
+	$fps.text = str(Engine.get_frames_per_second())
+	$collections/bigmoney.text = ":"+str(bigmoney)
+	$collections/money.text = ":"+str(money)
+	
+	if key_off == false :
+		key.visible = true
+	elif key_off == true :
+		key.visible = false
+	if yes_key == true and Input.is_action_just_pressed("push") :
+		key_off = true
+
+func _on_areacolection_area_entered(_area):
+	if _area.is_in_group("bigmoney") :
+		bigmoney += 1
+	if _area.is_in_group("money") :
+		money += 1
+	if _area.is_in_group("key") :
+		key_off = false
+
+
+func game_inputs():
+	if Input.is_action_pressed("speed") :
+		Movement_Data.speed = 100
+		$Animation.speed_scale = 1.4
+		$particles.speed_scale = 0.5
+		$walk.pitch_scale = 3
+	else : 
+		Movement_Data.speed = 80
+		$Animation.speed_scale = 1
+		$particles.speed_scale = 0.4
+		$walk.pitch_scale = 2
+	if Input.is_action_just_pressed("ui_cancel") :
+		if $paused.visible == false :
+			$paused.call("pause")
+		else : 
+			$paused.call("unpause")
+ 
+func apply_garavity(_delta):
+	if not is_on_floor():
+		velocity.y += gravity * Movement_Data.gravity_scale * _delta
+		
+		if play == false :
+			velocity.x = 0
+			Movement_Data.gravity_scale = 0.5
+			move_and_slide()
+	if go_up == true :
+			Movement_Data.gravity_scale = -1.0
+
+func handle_jump():
+	if is_on_floor() :
+		air_jump = true
+	
+	if is_on_floor() or coyotyjumpT.time_left > 0.0 :
+		if Input.is_action_just_pressed("ui_jump") :
+			velocity.y = Movement_Data.jump_velocity
+			$jump.play()
+	elif not is_on_floor() :
+		if Input.is_action_just_released("ui_jump") and velocity.y < Movement_Data.jump_velocity / 2 :
+			velocity.y = Movement_Data.jump_velocity / 2
+			if $jump.playing == false:
+				$jump.play()
+
+func handle_wall_jump(): 
+	if is_on_floor() : return
+	if !is_on_wall(): return
+	var wall_normal = get_wall_normal()
+	
+	if Input.is_action_just_pressed("ui_jump"): 
+		if Input.is_action_pressed("ui_right") or Input.is_action_pressed("ui_left") :
+			velocity.y = Movement_Data.wall_jump_speed * -1
+			velocity.x = Movement_Data.wall_jump_speed * wall_normal.x 
+			$wallbome.emitting = true
+			$jump.play()
+		jump_priority = true
+
+func wall_slide(input_axis):
+	if is_on_wall_only() :
+		if Input.is_action_pressed("ui_right") or Input.is_action_pressed("ui_left") :
+			if velocity.y >= 0 :
+				if slide == false :
+					velocity.y = 5
+					Movement_Data.gravity_scale = 0.1
+					$particles2.emitting = true
+					slide = true
+			else : 
+				$particles2.emitting = false
+				Movement_Data.gravity_scale = 1.0
+		else : 
+			Movement_Data.gravity_scale = 1.0
+			slide = false
+	else : 
+		$particles2.emitting = false
+		Movement_Data.gravity_scale = 1.0
+		slide = false
+	$particles2.position.x = 6 * input_axis
+
+func air_resistance(input_axis , _dalta):
+	if input_axis == 0 and not is_on_floor():
+		velocity.x = move_toward(velocity.x , 0 , Movement_Data.air_resistance)
+
+func apply_friction(input_axis , _delta):
+	if input_axis == 0 and is_on_floor() :
+		velocity.x = move_toward(velocity.x , 0 , Movement_Data.friction)
+
+func handle_acceleration(input_axis , _delta):
+	
+	if input_axis != 0 :
+		velocity.x = move_toward(velocity.x , Movement_Data.speed * input_axis , Movement_Data.acceleration * _delta)
+ 
+func handle_air_acceleration(input_axis , _dalta ) :
+		if is_on_floor() : return
+		if input_axis != 0 :
+			velocity.x = move_toward(velocity.x , Movement_Data.speed * input_axis , Movement_Data.air_acceleration * _dalta)
+
+func update_animation(input_axis) :
+	if play == false : return
+	if input_axis != 0 :
+		$Animation.flip_h = (input_axis < 0)
+		$particles.direction.x = input_axis * -1
+		$wallbome.position.x *= input_axis
+		$wallbome.direction.x *= input_axis
+		$Animation.play("walk")
+		if is_on_floor() :
+			if $walk.playing == false:
+				$walk.play()
+			$particles.emitting = true
+		else : 
+			$walk.stop()
+			$particles.emitting = false
+	else :
+			$walk.stop()
+			$Animation.play("idel")
+			$particles.emitting = false
+			$wallbome.position.x *= get_wall_normal().x *-1
+			$wallbome.direction.x *= get_wall_normal().x *-1
+	if not is_on_floor():
+		if input_axis != 0 :
+			$Animation.flip_h = (input_axis < 0)
+			$Animation.play("airmove")
+		else :
+			$Animation.play("jump up")
+		
+		if is_on_wall_only() and velocity.y >= 0 and go_up == false and Input.is_action_pressed("ui_right") or Input.is_action_pressed("ui_left")  :
+			$Animation.play("walljump")
+
+func die():
+	play = false
+	if $timers/dietimer.is_stopped() :
+		dietimer.start()
+	$Animation.play("die")
+	$particles.emitting = false
+	$particles2.emitting = false
+	$walk.stop()
+	$die.play()
+	emit_signal("player_die")
+
+func _on_dietimer_timeout():
+	play = true
+	get_tree().reload_current_scene()
+
+func _on_areadetector_area_entered(_area):
+	die()
+
+func _on_areakilldetector_area_entered(_area):
+	if play == true :
+		velocity.y = Movement_Data.jump_velocity
+
+func _on_areabody_d_area_entered(_area):
+	if _area.is_in_group("spring") :
+		velocity.y = -505
+	if _area is stears :
+		go_up = true
+	if _area.is_in_group("open_door") :
+		yes_key = true
+
+func _on_areabody_d_area_exited(_area):
+	if !_area.is_in_group("exit") : return
+	go_up = false
+	if _area.is_in_group("open_door") :
+		yes_key = false
+
+func up_down():
+	if !go_up : return
+	if Input.is_action_pressed("ui_up") :
+		velocity.y = -55
+	elif Input.is_action_pressed("ui_down") :
+		velocity.y = 55
+	else : velocity.y = 0

@@ -1,0 +1,148 @@
+[gd_scene load_steps=14 format=3 uid="uid://nlaq3u3en780"]
+
+[ext_resource type="Script" uid="uid://dkkbgomsvy00f" path="res://scens/Demo levels/scripts/info.gd" id="1_umpt5"]
+[ext_resource type="TileSet" uid="uid://bmvlxtsymxyh1" path="res://Recource Data/new_tile_set.tres" id="2_8l7cg"]
+[ext_resource type="Texture2D" uid="uid://dx3kk41fcye6f" path="res://assets/20250820_193819.png" id="3_axqrm"]
+[ext_resource type="PackedScene" uid="uid://dmu6mq6g66sjw" path="res://scens/bodys/light.tscn" id="6_4ncd0"]
+[ext_resource type="PackedScene" uid="uid://bbynakaorsbdq" path="res://scens/players/Player in menus.tscn" id="6_ia2fr"]
+[ext_resource type="PackedScene" uid="uid://dr4x0faliwwak" path="res://scens/bodys/button.tscn" id="8_0vmmi"]
+[ext_resource type="PackedScene" uid="uid://dodihc3gi4b3y" path="res://scens/bodys/e-light.tscn" id="8_axqrm"]
+[ext_resource type="PackedScene" uid="uid://btgrseibhrlqh" path="res://scens/bodys/spring.tscn" id="9_x02c0"]
+[ext_resource type="Texture2D" uid="uid://dmbjg7us1rd7e" path="res://download.png" id="10_qx8sb"]
+
+[sub_resource type="Animation" id="Animation_4k1jx"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_2tn0j"]
+resource_name = "fade"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("bg/CanvasModulate:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0.366595, 0.366595, 0.366595, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_rw3ko"]
+resource_name = "fade out"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("bg/CanvasModulate:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.364706, 0.364706, 0.364706, 1), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3i34p"]
+_data = {
+&"RESET": SubResource("Animation_4k1jx"),
+&"fade": SubResource("Animation_2tn0j"),
+&"fade out": SubResource("Animation_rw3ko")
+}
+
+[node name="info" type="Node2D"]
+script = ExtResource("1_umpt5")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("2_8l7cg")
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 983046, 9, 65536, 983046, 10, 131072, 983046, 10, 196608, 983046, 10, 1, 1048582, 9, 5, 1048582, 9, 262144, 1245190, 12, 589836, 1179654, 10, 524300, 1179654, 10, 458764, 1179654, 10, 393228, 1179654, 10, 327692, 1179654, 10, 262156, 1179654, 10, 196620, 1179654, 10, 131084, 851974, 10, 65548, 851974, 10, 12, 851974, 10, 6, 1245190, 12, 4, 1245190, 9, 2, 1245190, 12, 131089, 327680, 0, 196625, 720896, 12, 15, 196613, 0, 65551, 196613, 1, 131087, 327680, 0, 196623, 720896, 12, 196611, 1245190, 11, 262147, 983046, 10, 196610, 1245190, 10, 262146, 1114118, 10, 196622, 655360, 12, 196626, 786432, 12, 196624, 720896, 12, 131091, 786438, 10, 196627, 786438, 10, 262163, 786438, 10, 327699, 786438, 10, 393235, 786438, 10, 589835, 1114118, 15, 589834, 1245190, 14, 524299, 1114118, 14, 458763, 1114118, 14, 393227, 1245190, 14, 524288, 983046, 11, 524291, 983046, 10, 458752, 1245190, 11, 458771, 786438, 14, 524307, 786438, 14, 589843, 786438, 14, 655379, 786438, 14, 458755, 983046, 10, 393219, 983046, 10, 327683, 983046, 10, 458754, 1114118, 10, 393218, 1114118, 10, 327682, 1114118, 10, 524290, 1114118, 10, 524289, 1245190, 11, 524294, 1114118, 11, 458758, 1245190, 10, 524293, 1245190, 10)
+layer_1/name = "Layer1"
+layer_1/tile_data = PackedInt32Array(589833, 1114112, 13, 655372, 1114112, 13, 655371, 1048576, 13, 655370, 1048576, 13, 720909, 720896, 13, 720914, 720896, 13, 720910, 720896, 13, 720908, 917504, 13, 655369, 1245184, 13, 589831, 1048576, 13, 458751, 1114112, 10, 393215, 1114112, 10, 327679, 1114112, 10, 262143, 1114112, 10, 131071, 1114112, 10, 196607, 1114112, 10, -65521, 1048576, 11, -65522, 1048576, 11, -65523, 1048576, 11, -65524, 1048576, 11, -65525, 1048576, 11, -65526, 1048576, 11, -65527, 1048576, 11, -65528, 1048576, 11, -65529, 1048576, 11, -65530, 1048576, 11, -65531, 1048576, 11, -65532, 1048576, 11, -65533, 1048576, 11, -65534, 1048576, 11, -65535, 1048576, 11, -65536, 1048576, 11, 655380, 983040, 10, 589844, 983040, 10, 524308, 983040, 10, 327700, 983040, 10, 262164, 983040, 10, 458772, 983040, 10, 393236, 983040, 10, 131092, 983040, 10, 196628, 983040, 10, 720915, 720896, 13, 65535, 1114112, 10, 524287, 1114112, 10, 720916, 1245184, 12, -1, 1245184, 10, 458759, 1179654, 14, 393223, 1179654, 14, 327687, 1179654, 10, 262151, 1179654, 10, 196615, 1179654, 10, 131079, 1179654, 10, 65543, 1179654, 10, 7, 1179654, 10, 589832, 1048576, 13, 16, 655360, 11, 65553, 655360, 11, 65554, 720896, 11, 65555, 720896, 11, 65556, 1245184, 11, -65520, 917504, 11, 65547, 1245190, 10, 458760, 983046, 14, 393224, 983046, 14, 327688, 983046, 14, 262152, 983046, 14, 196616, 983046, 14, 131080, 983046, 14, 65544, 983046, 14, 9, 1245190, 16, 524296, 1245190, 16, 131078, 1114118, 10, 196614, 1114118, 10, 262150, 1114118, 10, 327686, 1245190, 9, 65542, 1245190, 10, 589830, 1048576, 9, 589829, 1048576, 9, 589828, 1048576, 9, 589827, 1048576, 9, 589826, 1048576, 9, 589825, 1048576, 9, 589824, 1048576, 9, 589823, 1114112, 10, 524295, 1179654, 14, 17, 917504, 11, 524302, 720902, 14, 524306, 720902, 14, 65550, 720902, 10, 655377, 786432, 13, 655375, 655360, 13, 655376, 720896, 13, 720911, 917504, 16, 720913, 917504, 13, 8, 983046, 13, 655368, 1048582, 14, 720907, 1048582, 14, 720912, 720902, 14, 18, 720902, 10)
+
+[node name="labels" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="1-bit journey" type="Label" parent="labels"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 24.0
+offset_right = 242.0
+offset_bottom = 48.0
+scale = Vector2(0.8, 0.8)
+theme_override_constants/outline_size = 5
+text = "Nothing Journey"
+
+[node name="developed by" type="Label" parent="labels"]
+layout_mode = 0
+offset_left = 224.0
+offset_top = 72.0
+offset_right = 372.0
+offset_bottom = 107.0
+scale = Vector2(0.6, 0.6)
+theme_override_constants/outline_size = 5
+text = "Developed 
+      by :"
+
+[node name="thank" type="Label" parent="labels"]
+layout_mode = 0
+offset_left = 12.4292
+offset_top = 78.6838
+offset_right = 170.429
+offset_bottom = 126.684
+scale = Vector2(0.5, 0.5)
+theme_override_constants/outline_size = 5
+text = "Thanks for 
+  playing"
+
+[node name="bg" type="Node2D" parent="."]
+
+[node name="CanvasModulate" type="CanvasModulate" parent="bg"]
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="bg"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_3i34p")
+}
+
+[node name="logo" type="Sprite2D" parent="."]
+position = Vector2(264, 112)
+scale = Vector2(0.0296078, 0.0296078)
+texture = ExtResource("3_axqrm")
+
+[node name="light2" parent="." instance=ExtResource("6_4ncd0")]
+position = Vector2(120, 104)
+
+[node name="light3" parent="." instance=ExtResource("6_4ncd0")]
+position = Vector2(200, 128)
+
+[node name="light5" parent="." instance=ExtResource("6_4ncd0")]
+position = Vector2(120, 14.684)
+
+[node name="light4" parent="." instance=ExtResource("6_4ncd0")]
+position = Vector2(48, 72)
+
+[node name="e-light" parent="." instance=ExtResource("8_axqrm")]
+position = Vector2(264, 64)
+
+[node name="Player in menus" parent="." instance=ExtResource("6_ia2fr")]
+position = Vector2(48, 128)
+
+[node name="main menu" parent="." instance=ExtResource("8_0vmmi")]
+position = Vector2(264, 144)
+scale = Vector2(2, 2)
+
+[node name="spring" parent="." instance=ExtResource("9_x02c0")]
+position = Vector2(184, 152)
+
+[node name="Download" type="Sprite2D" parent="."]
+position = Vector2(8, 176)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("10_qx8sb")
+
+[connection signal="animation_finished" from="bg/AnimationPlayer2" to="." method="_on_animation_player_2_animation_finished"]
+[connection signal="area_entered" from="main menu" to="." method="_on_main_menu_area_entered"]

@@ -1,0 +1,111 @@
+[gd_scene load_steps=6 format=3 uid="uid://c0gnlagea40xt"]
+
+[ext_resource type="Script" uid="uid://ckl6y8ga17vo8" path="res://scens/UI/scripts/intro.gd" id="1_dn3qb"]
+[ext_resource type="Texture2D" uid="uid://dx3kk41fcye6f" path="res://assets/20250820_193819.png" id="2_x0coi"]
+
+[sub_resource type="Animation" id="Animation_h4pyr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("logo:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("note:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_xwe0i"]
+resource_name = "fade"
+length = 4.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("logo:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6, 1.2, 1.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("note:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.8, 2.5, 3.6, 4.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_noqx7"]
+_data = {
+&"RESET": SubResource("Animation_h4pyr"),
+&"fade": SubResource("Animation_xwe0i")
+}
+
+[node name="intro" type="CanvasLayer"]
+script = ExtResource("1_dn3qb")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_noqx7")
+}
+autoplay = "fade"
+speed_scale = 0.7
+
+[node name="logo" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(160, 88)
+scale = Vector2(0.06, 0.06)
+texture = ExtResource("2_x0coi")
+
+[node name="note" type="Control" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 320.0
+offset_bottom = 184.0
+
+[node name="ar note" type="Label" parent="note"]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 40.0
+offset_right = 279.0
+offset_bottom = 89.0
+scale = Vector2(0.8, 0.8)
+text = "لا تدع اللعبة تلهيك عن الصلاة
+  وباقي العبادات       "
+
+[node name="eng note" type="Label" parent="note"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 104.0
+offset_right = 476.0
+offset_bottom = 158.0
+scale = Vector2(0.6, 0.7)
+text = "Don't let the game distract  you 
+   from prayer And the acts of 
+                    worship"
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

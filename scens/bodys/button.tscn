@@ -1,0 +1,83 @@
+[gd_scene load_steps=9 format=3 uid="uid://dr4x0faliwwak"]
+
+[ext_resource type="Script" path="res://scens/bodys/scripts/button.gd" id="1_ikays"]
+[ext_resource type="Texture2D" uid="uid://dospyke48cd6s" path="res://assets/Tiles/Transparent/objects/button.png" id="1_pcvjy"]
+[ext_resource type="Texture2D" uid="uid://b5j254rn7xoq8" path="res://assets/Tiles/Transparent/objects/button 2.png" id="2_kyqh6"]
+[ext_resource type="AudioStream" uid="uid://c82m3qadvdwnb" path="res://assets/sounds/click-button.mp3" id="4_amql2"]
+
+[sub_resource type="Animation" id="Animation_getup"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("button:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_kyqh6")]
+}
+
+[sub_resource type="Animation" id="Animation_aggj2"]
+resource_name = "click"
+length = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("button:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_kyqh6")]
+}
+
+[sub_resource type="Animation" id="Animation_ikqg5"]
+resource_name = "idel"
+length = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("button:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_pcvjy")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xd7xc"]
+_data = {
+"RESET": SubResource("Animation_getup"),
+"click": SubResource("Animation_aggj2"),
+"idel": SubResource("Animation_ikqg5")
+}
+
+[node name="button" type="Area2D"]
+collision_mask = 35
+script = ExtResource("1_ikays")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-6, 8, -6, 6, -5, 6, -5, 4, -4, 4, -4, 3, 4, 3, 4, 4, 5, 4, 5, 6, 6, 6, 6, 8)
+
+[node name="click" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_amql2")
+volume_db = -10.0
+
+[node name="animation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_xd7xc")
+}
+autoplay = "idel"
+
+[node name="button" type="Sprite2D" parent="."]
+texture = ExtResource("2_kyqh6")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]

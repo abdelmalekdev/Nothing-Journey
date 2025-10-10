@@ -1,0 +1,112 @@
+[gd_scene load_steps=14 format=3 uid="uid://dh1oyw5eclux5"]
+
+[ext_resource type="Script" path="res://scens/hazards/scripts/monsters/monster 2.gd" id="1_vqasj"]
+[ext_resource type="Texture2D" uid="uid://dkrdyuwddytcn" path="res://assets/Tiles/Transparent/monsters/tile_0363.png" id="2_i06ew"]
+[ext_resource type="Texture2D" uid="uid://bwgje8mwmwn7j" path="res://assets/Tiles/Transparent/monsters/tile_0364.png" id="3_q4tyy"]
+[ext_resource type="Texture2D" uid="uid://d3gos5q3xpcmw" path="res://assets/Tiles/Transparent/monsters/tile_0365.png" id="3_rhnb3"]
+[ext_resource type="Texture2D" uid="uid://bwkgn4x1g3o4x" path="res://assets/Tiles/Transparent/monsters/tile_0360.png" id="4_v0uki"]
+[ext_resource type="Texture2D" uid="uid://8p5vtxryowpd" path="res://assets/Tiles/Transparent/monsters/tile_0361.png" id="5_mgumk"]
+[ext_resource type="Texture2D" uid="uid://fmt07arov53n" path="res://assets/Tiles/Transparent/monsters/tile_0362.png" id="6_ptjum"]
+[ext_resource type="AudioStream" uid="uid://d1c807icjaqjh" path="res://assets/sounds/mixkit-falling-on-undergrowth-390.wav" id="8_xp5b4"]
+[ext_resource type="AudioStream" uid="uid://cb207dhhy2g7w" path="res://assets/sounds/whoosh.mp3" id="9_k1inr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_svhe3"]
+size = Vector2(10, 9)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1xfig"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_i06ew")
+}],
+"loop": true,
+"name": &"atack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_rhnb3")
+}],
+"loop": true,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_q4tyy")
+}],
+"loop": true,
+"name": &"down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_v0uki")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_mgumk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_ptjum")
+}],
+"loop": true,
+"name": &"idel",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uo455"]
+size = Vector2(12, 7)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nn6i2"]
+size = Vector2(12, 6)
+
+[node name="monster 2" type="CharacterBody2D"]
+texture_filter = 1
+collision_layer = 16
+collision_mask = 19
+platform_on_leave = 2
+script = ExtResource("1_vqasj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_svhe3")
+
+[node name="Animator" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -1)
+sprite_frames = SubResource("SpriteFrames_1xfig")
+animation = &"atack"
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+scale = Vector2(6, 1)
+target_position = Vector2(0, 119)
+collision_mask = 2
+
+[node name="areas" type="Node2D" parent="."]
+
+[node name="player kill" type="Area2D" parent="areas"]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="areas/player kill"]
+position = Vector2(0, -2.5)
+shape = SubResource("RectangleShape2D_uo455")
+
+[node name="player die" type="Area2D" parent="areas"]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="areas/player die"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_nn6i2")
+
+[node name="die" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_xp5b4")
+volume_db = -10.0
+
+[node name="attack" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_k1inr")
+volume_db = -10.0
+max_distance = 400.0
+
+[connection signal="area_entered" from="areas/player kill" to="." method="_on_player_kill_area_entered"]
+[connection signal="area_entered" from="areas/player die" to="." method="_on_player_die_area_entered"]

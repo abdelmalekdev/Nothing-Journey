@@ -1,0 +1,110 @@
+[gd_scene load_steps=10 format=3 uid="uid://c07xvvlv0kvb"]
+
+[ext_resource type="Texture2D" uid="uid://kombg12imtwx" path="res://assets/Tiles/Transparent/monsters/tile_0386.png" id="1_54bxl"]
+[ext_resource type="Script" uid="uid://ci1xjoehyneub" path="res://scens/hazards/scripts/shootmon.gd" id="1_tftv6"]
+[ext_resource type="Texture2D" uid="uid://cl6iqnwh3nftg" path="res://assets/Tiles/Transparent/monsters/tile_0386+.png" id="2_qg5uf"]
+[ext_resource type="Texture2D" uid="uid://mfvw4qltj10i" path="res://assets/Tiles/Transparent/tile_0001.png" id="4_wm7j4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2cxi3"]
+size = Vector2(10, 15)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0p3h0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_qg5uf")
+}],
+"loop": true,
+"name": &"idel",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_54bxl")
+}],
+"loop": true,
+"name": &"shoot",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v644u"]
+size = Vector2(1.87673, 4.00345)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rhn3l"]
+size = Vector2(8, 3)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wm7j4"]
+size = Vector2(12, 17)
+
+[node name="shootmon" type="CharacterBody2D"]
+collision_layer = 16
+collision_mask = 23
+platform_floor_layers = 4294901761
+platform_wall_layers = 1
+safe_margin = 0.001
+script = ExtResource("1_tftv6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_2cxi3")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(0, 10)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_0p3h0")
+animation = &"idel"
+autoplay = "idel"
+
+[node name="animationT" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="areas" type="Node2D" parent="."]
+
+[node name="left" type="Area2D" parent="areas" groups=["left"]]
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="areas/left"]
+position = Vector2(5, 10)
+shape = SubResource("RectangleShape2D_v644u")
+
+[node name="right" type="Area2D" parent="areas" groups=["right"]]
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="areas/right"]
+position = Vector2(-5, 10)
+shape = SubResource("RectangleShape2D_v644u")
+
+[node name="shootmon" type="Area2D" parent="areas" groups=["shootmon"]]
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="areas/shootmon"]
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_v644u")
+
+[node name="visibility" type="Area2D" parent="areas" groups=["visibility"]]
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="areas/visibility"]
+position = Vector2(0, 10.5)
+shape = SubResource("RectangleShape2D_rhn3l")
+
+[node name="player die" type="Area2D" parent="areas"]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="areas/player die"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_wm7j4")
+
+[node name="Tile0001" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, 14)
+texture = ExtResource("4_wm7j4")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="animationT" to="." method="_on_animation_t_timeout"]

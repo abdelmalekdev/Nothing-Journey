@@ -1,0 +1,85 @@
+[gd_scene load_steps=10 format=3 uid="uid://caongimcr5oe3"]
+
+[ext_resource type="Script" uid="uid://ci2osily546ia" path="res://scens/hazards/scripts/monsters/monster 4.gd" id="1_h1nfe"]
+[ext_resource type="Texture2D" uid="uid://cx6on2icetfxf" path="res://assets/Tiles/Transparent/monsters/tile_0382.png" id="2_66liw"]
+[ext_resource type="Texture2D" uid="uid://borr3kvi41njl" path="res://assets/Tiles/Transparent/monsters/tile_0380.png" id="3_bwxq3"]
+[ext_resource type="Texture2D" uid="uid://bb7q2a15d1ixe" path="res://assets/Tiles/Transparent/monsters/tile_0381.png" id="4_1q24f"]
+[ext_resource type="AudioStream" uid="uid://d1c807icjaqjh" path="res://assets/sounds/mixkit-falling-on-undergrowth-390.wav" id="5_vxbl1"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1xfig"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_66liw")
+}],
+"loop": true,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_bwxq3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_1q24f")
+}],
+"loop": true,
+"name": &"idel",
+"speed": 12.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_svhe3"]
+size = Vector2(10, 7)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uo455"]
+size = Vector2(12, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nn6i2"]
+size = Vector2(14, 5)
+
+[node name="monster 4" type="CharacterBody2D"]
+texture_filter = 1
+collision_layer = 16
+collision_mask = 19
+platform_on_leave = 2
+script = ExtResource("1_h1nfe")
+metadata/_edit_group_ = true
+
+[node name="Animator" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_1xfig")
+animation = &"idel"
+frame_progress = 0.70223
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_svhe3")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+scale = Vector2(6, 1)
+target_position = Vector2(0, 119)
+collision_mask = 2
+
+[node name="areas" type="Node2D" parent="."]
+
+[node name="player kill" type="Area2D" parent="areas"]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="areas/player kill"]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_uo455")
+
+[node name="player die" type="Area2D" parent="areas"]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="areas/player die"]
+position = Vector2(0, 4.5)
+shape = SubResource("RectangleShape2D_nn6i2")
+
+[node name="die" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_vxbl1")
+volume_db = -10.0
+
+[connection signal="area_entered" from="areas/player kill" to="." method="_on_player_kill_area_entered"]
+[connection signal="area_entered" from="areas/player die" to="." method="_on_player_die_area_entered"]

@@ -1,0 +1,158 @@
+[gd_scene load_steps=16 format=3 uid="uid://bv2lx2vswi5xt"]
+
+[ext_resource type="Script" uid="uid://bk55lgrj7xxsv" path="res://scens/hazards/scripts/floormon/floormon_2.gd" id="1_s81pp"]
+[ext_resource type="Texture2D" uid="uid://dpo2rbay4kjsf" path="res://assets/Tiles/Transparent/monsters/tile_0366.png" id="2_01yyl"]
+[ext_resource type="Texture2D" uid="uid://dkrdyuwddytcn" path="res://assets/Tiles/Transparent/monsters/tile_0363.png" id="3_edd2a"]
+[ext_resource type="Texture2D" uid="uid://bwgje8mwmwn7j" path="res://assets/Tiles/Transparent/monsters/tile_0364.png" id="4_rlfil"]
+[ext_resource type="Texture2D" uid="uid://bwkgn4x1g3o4x" path="res://assets/Tiles/Transparent/monsters/tile_0360.png" id="5_4nqvl"]
+[ext_resource type="Texture2D" uid="uid://8p5vtxryowpd" path="res://assets/Tiles/Transparent/monsters/tile_0361.png" id="6_jfq6d"]
+[ext_resource type="Texture2D" uid="uid://fmt07arov53n" path="res://assets/Tiles/Transparent/monsters/tile_0362.png" id="7_7r1pw"]
+[ext_resource type="Texture2D" uid="uid://d3gos5q3xpcmw" path="res://assets/Tiles/Transparent/monsters/tile_0365.png" id="8_k3g31"]
+[ext_resource type="AudioStream" uid="uid://bm8usfdh5sscr" path="res://assets/sounds/mixkit-footsteps-in-deep-mud.wav" id="9_ssmnj"]
+[ext_resource type="AudioStream" uid="uid://d1c807icjaqjh" path="res://assets/sounds/mixkit-falling-on-undergrowth-390.wav" id="10_xghgr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_58ebl"]
+size = Vector2(10, 10)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nkii3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_01yyl")
+}],
+"loop": true,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_edd2a")
+}],
+"loop": true,
+"name": &"idel",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_rlfil")
+}],
+"loop": true,
+"name": &"midie",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_4nqvl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_jfq6d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_7r1pw")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_k3g31")
+}],
+"loop": true,
+"name": &"slide",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ckmfg"]
+size = Vector2(10, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_544tf"]
+size = Vector2(12, 9)
+
+[sub_resource type="Curve" id="Curve_uljes"]
+_data = [Vector2(0, 0.0320284), 0.0, 0.0, 0, 0, Vector2(0.49537, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.0462633), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[node name="floormon 2" type="CharacterBody2D" groups=["floormon"]]
+collision_layer = 16
+collision_mask = 19
+script = ExtResource("1_s81pp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_58ebl")
+
+[node name="Animator" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_nkii3")
+animation = &"midie"
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+scale = Vector2(2, 1)
+target_position = Vector2(0, 13)
+
+[node name="areas" type="Node2D" parent="."]
+
+[node name="player kill" type="Area2D" parent="areas"]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="areas/player kill"]
+position = Vector2(0, -3)
+shape = SubResource("RectangleShape2D_ckmfg")
+
+[node name="player die" type="Area2D" parent="areas"]
+collision_layer = 4
+collision_mask = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="areas/player die"]
+position = Vector2(0, 3.5)
+shape = SubResource("RectangleShape2D_544tf")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="areas/player die"]
+position = Vector2(-1.36875, 0)
+scale = Vector2(0.8125, 1)
+polygon = PackedVector2Array(-6, -3, -6, -3, -7, -3, -7, -2, -6, -2)
+disabled = true
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="areas/player die"]
+position = Vector2(1.36875, 0)
+scale = Vector2(0.8125, 1)
+polygon = PackedVector2Array(6, -3, 6, -2, 6, -2, 6, -2, 7, -2, 7, -3)
+disabled = true
+
+[node name="dietimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="RayCast2D3" type="RayCast2D" parent="."]
+position = Vector2(9, 5)
+target_position = Vector2(-21, 0)
+collision_mask = 16
+
+[node name="walk" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_ssmnj")
+pitch_scale = 2.5
+max_distance = 400.0
+bus = &"SFX"
+
+[node name="particles" type="CPUParticles2D" parent="."]
+position = Vector2(0, 7)
+amount = 6
+lifetime = 0.3
+speed_scale = 0.4
+direction = Vector2(-1, 0)
+spread = 25.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+scale_amount_min = 2.0
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_uljes")
+
+[node name="die" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_xghgr")
+volume_db = -10.0
+
+[connection signal="area_entered" from="areas/player kill" to="." method="_on_player_kill_area_entered"]
+[connection signal="area_exited" from="areas/player kill" to="." method="_on_player_kill_area_exited"]
+[connection signal="timeout" from="dietimer" to="." method="_on_dietimer_timeout"]

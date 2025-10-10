@@ -1,0 +1,165 @@
+[gd_scene load_steps=22 format=3 uid="uid://d325i1hqth7mq"]
+
+[ext_resource type="Script" uid="uid://b0oey5vcoj8jc" path="res://scens/world/scripts/prototype.gd" id="1_73oji"]
+[ext_resource type="PackedScene" uid="uid://cnk23uwjqu5uc" path="res://scens/players/Player.tscn" id="2_xh34c"]
+[ext_resource type="PackedScene" uid="uid://bpdj1bw37l2mg" path="res://scens/hazards/hazard.tscn" id="3_6262i"]
+[ext_resource type="PackedScene" uid="uid://dh1oyw5eclux5" path="res://scens/hazards/monster 2.tscn" id="4_gd7x7"]
+[ext_resource type="PackedScene" uid="uid://p6opoinjql8n" path="res://scens/hazards/monster 1.tscn" id="5_7lvb2"]
+[ext_resource type="PackedScene" uid="uid://dikwlvl3uf1r0" path="res://scens/hazards/monster 3.tscn" id="6_34esj"]
+[ext_resource type="PackedScene" uid="uid://caongimcr5oe3" path="res://scens/hazards/monster 4.tscn" id="7_eck1o"]
+[ext_resource type="PackedScene" uid="uid://bgto7cp4uqrj1" path="res://scens/hazards/move_hazard.tscn" id="7_rkwdr"]
+[ext_resource type="PackedScene" uid="uid://btgrseibhrlqh" path="res://scens/bodys/spring.tscn" id="8_fxbuh"]
+[ext_resource type="PackedScene" uid="uid://c1unjxjlhnmiy" path="res://scens/hazards/monster 5.tscn" id="8_lhh60"]
+[ext_resource type="PackedScene" uid="uid://b5g4bypeqcb8h" path="res://scens/bodys/stears.tscn" id="9_jlusw"]
+[ext_resource type="PackedScene" uid="uid://iwsvhkjuy4ti" path="res://scens/hazards/floormon_1.tscn" id="9_r5rra"]
+[ext_resource type="PackedScene" uid="uid://c6na5wchahhl0" path="res://scens/hazards/floormon_3.tscn" id="10_7ycaa"]
+[ext_resource type="PackedScene" uid="uid://bxfjgcmr3jfc2" path="res://scens/bodys/Mheart.tscn" id="10_u45n0"]
+[ext_resource type="PackedScene" uid="uid://b6l0ypahnqlxx" path="res://scens/bodys/money.tscn" id="11_soeem"]
+[ext_resource type="PackedScene" uid="uid://bv2lx2vswi5xt" path="res://scens/hazards/floormon_2.tscn" id="12_yf6js"]
+[ext_resource type="PackedScene" uid="uid://c07xvvlv0kvb" path="res://scens/hazards/shootmon.tscn" id="13_juitm"]
+[ext_resource type="PackedScene" uid="uid://bnko0pa55ob42" path="res://scens/bodys/box.tscn" id="17_0fdgr"]
+[ext_resource type="PackedScene" uid="uid://dmu6mq6g66sjw" path="res://scens/bodys/light.tscn" id="18_emmie"]
+[ext_resource type="PackedScene" uid="uid://da53778n6wev1" path="res://scens/bodys/door.tscn" id="20_btjs0"]
+[ext_resource type="PackedScene" uid="uid://dk84gv1sc2wio" path="res://scens/bodys/key.tscn" id="21_8rtv5"]
+
+[node name="prototype" type="Node2D"]
+position = Vector2(-8, -32)
+script = ExtResource("1_73oji")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.192157, 0.192157, 0.192157, 1)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(0, 384, 0, 536, 688, 536, 688, -24, 0, -24, 0, 8, 24, 8, 200, 8, 200, 0, 360, 0, 360, 192, 400, 192, 400, 272, 368, 272, 368, 288, 384, 288, 384, 352, 320, 352, 320, 248, 336, 248, 336, 232, 320, 232, 288, 232, 288, 304, 272, 304, 272, 320, 288, 320, 288, 400, 488, 400, 488, 168, 392, 168, 392, 0, 536, 0, 536, 312, 512, 312, 512, 328, 536, 328, 536, 432, 520, 432, 368, 432, 288, 432, 288, 488, 16, 488, 16, 368, 232, 368, 264, 368, 264, 352, 240, 352, 240, 264, 248, 264, 248, 248, 232, 248, 232, 232, 168, 232, 168, 216, 152, 216, 152, 248, 200, 248, 200, 352, 104, 352, 104, 312, 56, 312, 56, 264, 136, 264, 136, 216, 120, 216, 120, 248, 24, 248, 24, 216, 40, 216, 40, 200, 24, 200, 24, 168, 336, 168, 336, 152, 328, 152, 328, 32, 296, 32, 296, 56, 200, 56, 200, 88, 200, 112, 216, 112, 216, 88, 288, 88, 288, 144, 256, 144, 256, 152, 168, 152, 168, 120, 152, 120, 152, 152, 136, 152, 136, 72, 88, 72, 88, 128, 64, 128, 64, 136, 24, 136, 24, 104, 40, 104, 40, 88, 24, 88, 24, 8, 0, 8)
+
+[node name="Polygon2D" type="Polygon2D" parent="StaticBody2D/CollisionPolygon2D"]
+color = Color(0.340339, 0.340339, 0.340339, 1)
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+color = Color(0.933333, 0.784314, 0.8, 1)
+
+[node name="Player" parent="." instance=ExtResource("2_xh34c")]
+texture_filter = 1
+position = Vector2(296, 176)
+rotation = -6.28252
+floor_constant_speed = true
+floor_snap_length = 2.0
+
+[node name="enmys" type="Node2D" parent="."]
+
+[node name="move hazard2" parent="enmys" instance=ExtResource("7_rkwdr")]
+position = Vector2(264, 136)
+
+[node name="hazard2" parent="enmys" instance=ExtResource("3_6262i")]
+position = Vector2(288, 48)
+
+[node name="hazard" parent="enmys" instance=ExtResource("3_6262i")]
+position = Vector2(112, 224)
+rotation = -1.5708
+
+[node name="monster" parent="enmys" instance=ExtResource("4_gd7x7")]
+position = Vector2(191, 13)
+
+[node name="monster2" parent="enmys" instance=ExtResource("4_gd7x7")]
+position = Vector2(96, 176)
+
+[node name="monster 1" parent="enmys" instance=ExtResource("5_7lvb2")]
+position = Vector2(69, 11)
+
+[node name="monster 3" parent="enmys" instance=ExtResource("6_34esj")]
+position = Vector2(143, 13)
+
+[node name="move hazard" parent="enmys" instance=ExtResource("7_rkwdr")]
+position = Vector2(280, 136)
+
+[node name="move hazard3" parent="enmys" instance=ExtResource("7_rkwdr")]
+position = Vector2(360, 280)
+rotation = -1.5708
+
+[node name="monster 4" parent="enmys" instance=ExtResource("7_eck1o")]
+position = Vector2(176, 376)
+
+[node name="monster 5" parent="enmys" instance=ExtResource("8_lhh60")]
+position = Vector2(416, 56)
+
+[node name="floormon 3" parent="enmys" instance=ExtResource("10_7ycaa")]
+position = Vector2(161, 481)
+collision_mask = 51
+
+[node name="floormon 2" parent="enmys" instance=ExtResource("12_yf6js")]
+position = Vector2(216, 224)
+collision_mask = 51
+
+[node name="floormon 1" parent="enmys" instance=ExtResource("9_r5rra")]
+position = Vector2(232, 480)
+
+[node name="shootmon" parent="enmys" instance=ExtResource("13_juitm")]
+position = Vector2(384, 200)
+rotation = -6.24861
+
+[node name="objects" type="Node2D" parent="."]
+
+[node name="stears" parent="objects" instance=ExtResource("9_jlusw")]
+position = Vector2(144, 304)
+
+[node name="stears3" parent="objects" instance=ExtResource("9_jlusw")]
+position = Vector2(144, 224)
+
+[node name="stears4" parent="objects" instance=ExtResource("9_jlusw")]
+position = Vector2(144, 256)
+
+[node name="stears6" parent="objects" instance=ExtResource("9_jlusw")]
+position = Vector2(144, 240)
+
+[node name="stears5" parent="objects" instance=ExtResource("9_jlusw")]
+position = Vector2(144, 272)
+
+[node name="stears7" parent="objects" instance=ExtResource("9_jlusw")]
+position = Vector2(144, 208)
+
+[node name="stears2" parent="objects" instance=ExtResource("9_jlusw")]
+position = Vector2(144, 288)
+
+[node name="spring" parent="objects" instance=ExtResource("8_fxbuh")]
+position = Vector2(352, 344)
+
+[node name="Mheart" parent="objects" instance=ExtResource("10_u45n0")]
+position = Vector2(144, 125)
+
+[node name="Mheart2" parent="objects" instance=ExtResource("10_u45n0")]
+position = Vector2(272, 112)
+
+[node name="Mheart3" parent="objects" instance=ExtResource("10_u45n0")]
+position = Vector2(72, 295)
+
+[node name="money2" parent="objects" instance=ExtResource("11_soeem")]
+position = Vector2(264, 32)
+
+[node name="money" parent="objects" instance=ExtResource("11_soeem")]
+position = Vector2(224, 32)
+
+[node name="box" parent="objects" instance=ExtResource("17_0fdgr")]
+position = Vector2(344, 424)
+
+[node name="box2" parent="objects" instance=ExtResource("17_0fdgr")]
+position = Vector2(312, 224)
+
+[node name="light" parent="objects" instance=ExtResource("18_emmie")]
+position = Vector2(152, 328)
+
+[node name="door" parent="objects" instance=ExtResource("20_btjs0")]
+position = Vector2(152, 344)
+
+[node name="key" parent="objects" instance=ExtResource("21_8rtv5")]
+position = Vector2(117, 320)
+
+[node name="key2" parent="objects" instance=ExtResource("21_8rtv5")]
+position = Vector2(72, 208)
+
+[connection signal="area_entered" from="objects/door" to="." method="_on_door_area_entered"]
+[connection signal="open_door" from="objects/key" to="objects/door/open door" method="_on_key_open_door"]
+[connection signal="open_door" from="objects/key2" to="objects/door/open door" method="_on_key_open_door"]
+
+[editable path="objects/door"]

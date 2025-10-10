@@ -1,0 +1,197 @@
+[gd_scene load_steps=19 format=3 uid="uid://bsyhnj35dkx70"]
+
+[ext_resource type="TileSet" uid="uid://bmvlxtsymxyh1" path="res://Recource Data/new_tile_set.tres" id="1_311u3"]
+[ext_resource type="Script" uid="uid://8eehh5kdpm6g" path="res://scens/UI/scripts/startmenu.gd" id="1_cp5kv"]
+[ext_resource type="Texture2D" uid="uid://b1ont2bql7s80" path="res://assets/20250722_113006.png" id="3_0elmx"]
+[ext_resource type="PackedScene" uid="uid://dodihc3gi4b3y" path="res://scens/bodys/e-light.tscn" id="3_d3671"]
+[ext_resource type="PackedScene" uid="uid://dmu6mq6g66sjw" path="res://scens/bodys/light.tscn" id="3_o7wpq"]
+[ext_resource type="Texture2D" uid="uid://bjs5qtql5o6cm" path="res://assets/UI/Micro Icon Pack/Video/1. Play.png" id="6_d3671"]
+[ext_resource type="Texture2D" uid="uid://d15eqea6q1av6" path="res://assets/Tiles/Transparent/player/move3.png.png" id="7_ihk0x"]
+[ext_resource type="Texture2D" uid="uid://ywwhuwxv65dx" path="res://assets/UI/Micro Icon Pack/Video/9. Fullscreen Enter.png" id="7_leotj"]
+[ext_resource type="Texture2D" uid="uid://cki7bi120oeeq" path="res://assets/UI/Micro Icon Pack/Video/11. Loop.png" id="8_8hdur"]
+[ext_resource type="AudioStream" uid="uid://ci7ru8tuc3epi" path="res://assets/sounds/dungeon-air-6983.mp3" id="8_qte02"]
+[ext_resource type="Texture2D" uid="uid://dmbjg7us1rd7e" path="res://download.png" id="9_2f7tl"]
+[ext_resource type="Texture2D" uid="uid://bye3alycn060p" path="res://assets/UI/Micro Icon Pack/Browser/9. Close or Multiply.png" id="9_65jca"]
+
+[sub_resource type="Animation" id="Animation_31ve0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasModulate:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.231373, 0.231373, 0.231373, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_w1vuw"]
+resource_name = "fade"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasModulate:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0.231373, 0.231373, 0.231373, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3vgvx"]
+_data = {
+&"RESET": SubResource("Animation_31ve0"),
+&"fade": SubResource("Animation_w1vuw")
+}
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_xl06y"]
+load_path = "res://.godot/imported/white.png-eba776352624a0c66d37d8fcd1c0e7e5.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8i248"]
+texture = SubResource("CompressedTexture2D_xl06y")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+
+[sub_resource type="Theme" id="Theme_npl43"]
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_focus_color = Color(1, 1, 1, 1)
+Button/colors/font_hover_color = Color(1, 1, 1, 1)
+Button/colors/font_pressed_color = Color(0, 0, 0, 1)
+Button/font_sizes/font_size = 10
+Button/styles/normal = SubResource("StyleBoxTexture_8i248")
+Label/font_sizes/font_size = 16
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -320.0
+offset_bottom = -180.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="bg" type="Node2D" parent="."]
+
+[node name="CanvasModulate" type="CanvasModulate" parent="bg"]
+color = Color(0.231373, 0.231373, 0.231373, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="bg"]
+libraries = {
+&"": SubResource("AnimationLibrary_3vgvx")
+}
+autoplay = "fade"
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("1_311u3")
+format = 2
+layer_0/tile_data = PackedInt32Array(720898, 1179648, 9, 655360, 1179648, 9, 458755, 1114112, 9, 524293, 1114112, 9, 524292, 1048576, 9, 458754, 1048576, 9, 458753, 1048576, 9, 458752, 1048576, 9, 458751, 1114112, 10, 393215, 1114112, 10, 327679, 1114112, 10, 262143, 1114112, 14, 196607, 1114112, 14, 131071, 1114112, 14, 65535, 1114112, 14, -65536, 1048576, 15, -65535, 1048576, 15, -65534, 1048576, 15, -65533, 1048576, 15, -65532, 1048576, 15, -65531, 1048576, 15, -65530, 1048576, 15, -65529, 1048576, 15, -65528, 1048576, 15, -65527, 1048576, 15, -65526, 1048576, 15, 589830, 1048576, 9, 589831, 1048576, 9, 589832, 1114112, 9, 655369, 1048576, 9, 655370, 1048576, 9, 655368, 1245184, 9, 589829, 1245184, 9, 524291, 1245184, 9, 524287, 1245184, 9, -1, 1245184, 14, 589837, 1179648, 10, 524301, 1179648, 10, 458765, 1179648, 10, 393229, 1179648, 10, 327693, 1179648, 10, 262157, 1179648, 14, 196621, 1179648, 14, 131085, 1179648, 14, 65549, 1179648, 14, 13, 1179648, 13, 655373, 1179648, 11, 655372, 1048576, 9, 655371, 1048576, 9, -65525, 1048576, 15, -65524, 1048576, 15, 65546, 983046, 10, 458762, 983046, 10, 393226, 983046, 10, 327690, 983046, 10, -65523, 1245184, 15, 655374, 720896, 13, 655375, 720896, 13, 655376, 720896, 13, 589841, 655360, 13, 589842, 720896, 13, 524307, 655360, 14, 458771, 655360, 14, 393235, 655360, 14, 327698, 720896, 15, 327697, 720896, 15, 262160, 720896, 9, 262161, 720896, 9, 196626, 655360, 10, 131090, 655360, 9, 131091, 720896, 9, 589843, 917504, 16, 655377, 917504, 16, 327699, 917504, 15, 393232, 786432, 15, 393231, 720896, 15, 393230, 720896, 15, 524303, 720896, 14, 327696, 917504, 14, 262159, 655360, 9, 327694, 720896, 9, 327695, 917504, 12, 262162, 917504, 12, 131087, 720896, 10, 14, 589824, 13, 3, 196608, 0, 131074, 262144, 1, 196610, 262144, 2, 131075, 327680, 1, 196611, 327680, 2, 131076, 393216, 1, 196612, 393216, 2, 65539, 327680, 0, 524290, 1048582, 10, 655367, 1048582, 10)
+layer_1/name = "Layer1"
+layer_1/tile_data = PackedInt32Array(131072, 983046, 10, 196608, 983046, 10, 262144, 1245190, 12, 4, 1048582, 13, 5, 1048582, 13, 6, 1048582, 13, 7, 1048582, 13, 8, 1245190, 16, 458757, 1048582, 11, 524295, 1048582, 11, 524296, 1048582, 11, 524294, 983046, 11, 458756, 1245190, 10, 589833, 1114118, 10, 524297, 1114118, 10, 589834, 983046, 10, 458761, 1114118, 10, 393225, 1114118, 10, 327689, 1114118, 10, 262153, 1114118, 14, 196617, 1114118, 14, 131081, 1114118, 14, 65545, 1114118, 14, 9, 1114118, 14, 65546, 983046, 14, 131082, 983046, 14, 196618, 983046, 14, 262154, 983046, 14, 327690, 983046, 10, 393226, 983046, 10, 524298, 983046, 10, 10, 983046, 14, 589836, 458752, 11, 3, 1245190, 13, 131087, 720902, 10, 524303, 720902, 14, 2, 1245190, 12, 0, 983046, 9, 65536, 983046, 10, 1, 1048582, 9, 65555, 655366, 10, 19, 655366, 10, 65554, 786438, 10, 18, 786438, 10, 458769, 720902, 14, 393218, 983046, 14, 327682, 983046, 14, 393217, 1114118, 14, 327681, 1114118, 14, 262146, 1245190, 15, 262145, 1245190, 14)
+
+[node name="light2" parent="." instance=ExtResource("3_o7wpq")]
+position = Vector2(32, 88)
+
+[node name="light" parent="." instance=ExtResource("3_o7wpq")]
+position = Vector2(160, 88)
+
+[node name="light3" parent="." instance=ExtResource("3_o7wpq")]
+position = Vector2(248, 136)
+
+[node name="e-light" parent="." instance=ExtResource("3_d3671")]
+position = Vector2(264, 0)
+
+[node name="logo" type="Sprite2D" parent="."]
+position = Vector2(304, 168)
+scale = Vector2(0.01, 0.01)
+texture = ExtResource("3_0elmx")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="1-bit journey" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -112.0
+offset_top = 16.0
+offset_right = 114.0
+offset_bottom = 40.0
+grow_horizontal = 2
+theme = SubResource("Theme_npl43")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+text = "Nothing Journey"
+
+[node name="startmenu" type="CenterContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 81.0
+offset_bottom = 42.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.8, 0.8)
+script = ExtResource("1_cp5kv")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/startmenu"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Main menu" type="Label" parent="CanvasLayer/startmenu/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 0
+text = "Main menu"
+
+[node name="start game" type="Button" parent="CanvasLayer/startmenu/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Continue"
+icon = ExtResource("6_d3671")
+
+[node name="Rest Game" type="Button" parent="CanvasLayer/startmenu/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "New game"
+icon = ExtResource("8_8hdur")
+
+[node name="info" type="Button" parent="CanvasLayer/startmenu/VBoxContainer"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+text = "Controls
+"
+icon = ExtResource("7_leotj")
+
+[node name="quit" type="Button" parent="CanvasLayer/startmenu/VBoxContainer"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+text = "Quit"
+icon = ExtResource("9_65jca")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_qte02")
+volume_db = 0.6
+pitch_scale = 0.5
+autoplay = true
+
+[node name="Move3_png" type="Sprite2D" parent="."]
+position = Vector2(56, 104)
+texture = ExtResource("7_ihk0x")
+
+[node name="Download" type="Sprite2D" parent="."]
+position = Vector2(8, 5)
+scale = Vector2(0.05, 0.06)
+texture = ExtResource("9_2f7tl")
+
+[connection signal="pressed" from="CanvasLayer/startmenu/VBoxContainer/start game" to="CanvasLayer/startmenu" method="_on_start_game_pressed"]
+[connection signal="pressed" from="CanvasLayer/startmenu/VBoxContainer/Rest Game" to="CanvasLayer/startmenu" method="_on_delete_save_pressed"]
+[connection signal="pressed" from="CanvasLayer/startmenu/VBoxContainer/info" to="CanvasLayer/startmenu" method="_on_info_pressed"]
+[connection signal="pressed" from="CanvasLayer/startmenu/VBoxContainer/quit" to="CanvasLayer/startmenu" method="_on_quit_pressed"]

@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://bgto7cp4uqrj1"]
+
+[ext_resource type="Texture2D" uid="uid://chlp7ojxg2ork" path="res://assets/Tiles/Transparent/tile_0183.png" id="1_3xbp1"]
+[ext_resource type="Script" path="res://scens/hazards/scripts/move_hazard.gd" id="1_qsy52"]
+[ext_resource type="Texture2D" uid="uid://cjnf7220aobtj" path="res://assets/Tiles/Transparent/tile_0203.png" id="2_0myip"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_32thm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_3xbp1")
+}],
+"loop": true,
+"name": &"atack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_0myip")
+}],
+"loop": true,
+"name": &"idel",
+"speed": 4.0
+}]
+
+[node name="move hazard" type="Area2D"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_qsy52")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-8, 8, -8, 6, -7, 6, -7, 4, -6, 4, -6, 1, -5, 1, -5, -1, -3, -1, -3, 1, -2, 1, -2, 4, -1, 4, -1, 6, 1, 6, 1, 4, 2, 4, 2, 1, 3, 1, 3, -1, 5, -1, 5, 1, 6, 1, 6, 4, 7, 4, 7, 6, 8, 6, 8, 8, 7, 8, 7, 7, -7, 7, -7, 8)
+
+[node name="Animation" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_32thm")
+animation = &"idel"
+frame_progress = 0.874321
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 6.0
+autostart = true

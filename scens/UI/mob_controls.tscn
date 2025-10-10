@@ -1,0 +1,59 @@
+[gd_scene load_steps=8 format=3 uid="uid://6wa3dcyflbhj"]
+
+[ext_resource type="Texture2D" uid="uid://djqiolyj5u3a8" path="res://assets/Tiles/Transparent/controls/right.png" id="1_j6w4w"]
+[ext_resource type="Texture2D" uid="uid://wltrq0qjpbir" path="res://assets/Tiles/Transparent/controls/left.png" id="2_pyw46"]
+[ext_resource type="Texture2D" uid="uid://cv1n8se83ddpw" path="res://assets/Tiles/Transparent/controls/space.png" id="3_2gcjs"]
+[ext_resource type="Texture2D" uid="uid://c4s7urh3s1e4l" path="res://assets/Tiles/Transparent/controls/X.png" id="4_w4mqw"]
+[ext_resource type="Texture2D" uid="uid://cvx0jtjj3715r" path="res://assets/Tiles/Transparent/controls/C.png" id="5_451or"]
+[ext_resource type="Texture2D" uid="uid://b7drcbwdfgai2" path="res://assets/Tiles/Transparent/controls/shift.png" id="5_js1ni"]
+[ext_resource type="Texture2D" uid="uid://cjlrhv1fjp6o7" path="res://assets/Tiles/Transparent/controls/paused.png" id="6_swffr"]
+
+[node name="mob controls" type="CanvasLayer"]
+
+[node name="right" type="TouchScreenButton" parent="."]
+position = Vector2(80, 136)
+scale = Vector2(1.5, 1.5)
+texture_normal = ExtResource("1_j6w4w")
+action = "ui_right"
+metadata/_edit_group_ = true
+
+[node name="left" type="TouchScreenButton" parent="."]
+position = Vector2(32, 136)
+scale = Vector2(1.5, 1.5)
+texture_normal = ExtResource("2_pyw46")
+action = "ui_left"
+metadata/_edit_group_ = true
+
+[node name="space" type="TouchScreenButton" parent="."]
+position = Vector2(248, 136)
+scale = Vector2(1.5, 1.5)
+texture_normal = ExtResource("3_2gcjs")
+action = "ui_jump"
+metadata/_edit_group_ = true
+
+[node name="w" type="TouchScreenButton" parent="."]
+position = Vector2(288, 144)
+texture_normal = ExtResource("4_w4mqw")
+action = "speed"
+metadata/_edit_group_ = true
+
+[node name="C" type="TouchScreenButton" parent="."]
+position = Vector2(296, 128)
+scale = Vector2(0.7, 0.7)
+texture_normal = ExtResource("5_451or")
+action = "push"
+metadata/_edit_group_ = true
+
+[node name="shift" type="TouchScreenButton" parent="."]
+position = Vector2(232, 160)
+scale = Vector2(0.7, 0.7)
+texture_normal = ExtResource("5_js1ni")
+action = "shift"
+metadata/_edit_group_ = true
+
+[node name="paused" type="TouchScreenButton" parent="."]
+process_mode = 3
+position = Vector2(5, 5)
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("6_swffr")
+action = "ui_cancel"

@@ -1,0 +1,127 @@
+[gd_scene load_steps=14 format=3 uid="uid://iwsvhkjuy4ti"]
+
+[ext_resource type="Script" uid="uid://bxrj13nx7m2mu" path="res://scens/hazards/scripts/floormon/floormon_1.gd" id="1_4cgco"]
+[ext_resource type="Texture2D" uid="uid://c7m7xtvfo5ok2" path="res://assets/Tiles/Transparent/monsters/tile_0324.png" id="1_cbsn7"]
+[ext_resource type="Texture2D" uid="uid://cv184xq0ep1w" path="res://assets/Tiles/Transparent/monsters/tile_0323.png" id="2_ytgcp"]
+[ext_resource type="Texture2D" uid="uid://cd3ecrxjm6mj7" path="res://assets/Tiles/Transparent/monsters/tile_0320.png" id="3_iul0b"]
+[ext_resource type="Texture2D" uid="uid://cn2qc786mnacj" path="res://assets/Tiles/Transparent/monsters/tile_0321.png" id="4_gm51p"]
+[ext_resource type="Texture2D" uid="uid://cjch2kcxb1kpv" path="res://assets/Tiles/Transparent/monsters/tile_0322.png" id="5_6hhv5"]
+[ext_resource type="AudioStream" uid="uid://d1c807icjaqjh" path="res://assets/sounds/mixkit-falling-on-undergrowth-390.wav" id="7_cexhe"]
+[ext_resource type="AudioStream" uid="uid://bm8usfdh5sscr" path="res://assets/sounds/mixkit-footsteps-in-deep-mud.wav" id="8_aljg0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_58ebl"]
+size = Vector2(8, 7)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nkii3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_cbsn7")
+}],
+"loop": true,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ytgcp")
+}],
+"loop": true,
+"name": &"idel",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_iul0b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_gm51p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_6hhv5")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_544tf"]
+size = Vector2(12, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ckmfg"]
+size = Vector2(8, 1)
+
+[sub_resource type="Curve" id="Curve_kyqh3"]
+_data = [Vector2(0, 0.0320284), 0.0, 0.0, 0, 0, Vector2(0.49537, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.0462633), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[node name="floormon 1" type="CharacterBody2D" groups=["floormon"]]
+collision_layer = 16
+collision_mask = 19
+script = ExtResource("1_4cgco")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3.5)
+shape = SubResource("RectangleShape2D_58ebl")
+
+[node name="Animator" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_nkii3")
+animation = &"idel"
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+scale = Vector2(2, 1)
+target_position = Vector2(0, 13)
+
+[node name="areas" type="Node2D" parent="."]
+
+[node name="player die" type="Area2D" parent="areas"]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="areas/player die"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_544tf")
+
+[node name="player kill" type="Area2D" parent="areas"]
+collision_layer = 8
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="areas/player kill"]
+position = Vector2(0, -2.5)
+shape = SubResource("RectangleShape2D_ckmfg")
+
+[node name="dietimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="RayCast2D2" type="RayCast2D" parent="."]
+position = Vector2(9, 5)
+target_position = Vector2(-21, 0)
+collision_mask = 16
+
+[node name="particles" type="CPUParticles2D" parent="."]
+position = Vector2(0, 7)
+amount = 6
+lifetime = 0.3
+speed_scale = 0.4
+direction = Vector2(-1, 0)
+spread = 25.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+scale_amount_min = 2.0
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_kyqh3")
+
+[node name="die" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_cexhe")
+volume_db = -10.0
+
+[node name="walk" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_aljg0")
+volume_db = 1.0
+pitch_scale = 2.5
+max_distance = 400.0
+bus = &"SFX"
+
+[connection signal="area_entered" from="areas/player kill" to="." method="_on_player_kill_area_entered"]
+[connection signal="timeout" from="dietimer" to="." method="_on_dietimer_timeout"]

@@ -1,0 +1,92 @@
+[gd_scene load_steps=9 format=3 uid="uid://dmu6mq6g66sjw"]
+
+[ext_resource type="Texture2D" uid="uid://fy582ow3t1c2" path="res://assets/Tiles/Transparent/tile_0248.png" id="1_tbhle"]
+
+[sub_resource type="Curve" id="Curve_ngvgp"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.330961), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_tkatg"]
+offsets = PackedFloat32Array(0, 0.342105, 0.932836)
+colors = PackedColorArray(1, 1, 1, 1, 0.534361, 0.534361, 0.534361, 1, 0, 0, 0, 1)
+
+[sub_resource type="Gradient" id="Gradient_ol3lb"]
+offsets = PackedFloat32Array(0, 0.742857)
+colors = PackedColorArray(1, 0.775648, 0.581735, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_n6tc1"]
+gradient = SubResource("Gradient_ol3lb")
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.00328947)
+
+[sub_resource type="Animation" id="Animation_vetuo"]
+length = 0.001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Tile0248:flip_h")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_q2lur"]
+resource_name = "idel"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Tile0248:flip_h")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_h0ex1"]
+_data = {
+&"RESET": SubResource("Animation_vetuo"),
+&"idel": SubResource("Animation_q2lur")
+}
+
+[node name="light" type="Node2D"]
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(0, -1)
+amount = 7
+lifetime = 2.0
+direction = Vector2(0, -0.5)
+spread = 20.0
+gravity = Vector2(0, 5)
+initial_velocity_min = 10.0
+initial_velocity_max = 10.0
+scale_amount_curve = SubResource("Curve_ngvgp")
+color_ramp = SubResource("Gradient_tkatg")
+
+[node name="Tile0248" type="Sprite2D" parent="."]
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("1_tbhle")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(-2.27374e-13, 0)
+scale = Vector2(1.33333, 1.33333)
+energy = 2.0
+texture = SubResource("GradientTexture2D_n6tc1")
+texture_scale = 1.5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_h0ex1")
+}
+autoplay = "idel"
